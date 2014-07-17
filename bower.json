@@ -1,0 +1,8 @@
+{
+  "name": "colorsel",
+  "private": true,
+  "dependencies": {
+    "angular-mocks": "~1.2.20",
+    "angular-route": "~1.2.20"
+  }
+}
