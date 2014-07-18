@@ -3,12 +3,44 @@
   <head>
 	<meta charset="UTF-8"/>
 	<title>colorsel</title>
+    <link href="main.css" rel="stylesheet">
 
 
 
 	<script type="text/ng-template" id="template.colorbox">
 
-	  {{ hi }}, world!
+	  <div class="colorbox_statusbar" ng-if="status_bar">
+		<div ng-bind-html="status_bar"></div>
+	  </div>
+
+	  <div>
+		<label ng-repeat="data in colordata track by $index">
+		  <input type="radio"
+				 ng-model="$parent.colordata_active"
+				 ng-value="data">{{ data.name }}
+		</label>
+	  </div>
+
+	  <table border=1>
+		<thead>
+		  <tr>
+			<td>#</td>
+			<td>Color</td>
+			<td>Decimal</td>
+			<td>HEX</td>
+			<td>{{ colordata_active.name }} Name</td>
+		  </tr>
+		</thead>
+		<tbody>
+		  <tr ng-repeat="color in colors">
+			<td>{{ $index + 1}}</td>
+			<td>TODO</td>
+			<td>{{ color.decimals }}</td>
+			<td>TODO</td>
+			<td>{{ color.name }}</td>
+		  </tr>
+		</tbody>
+	  </table>
 
 	</script>
 

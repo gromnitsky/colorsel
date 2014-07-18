@@ -7,7 +7,7 @@ controllers.init app
 
 app.config ['$routeProvider', ($routeProvider) ->
   $routeProvider
-  .when '/', {
+  .when '/:name*', {
     templateUrl: 'template.colorbox'
     controller: "ColorBoxCtrl"
   }
@@ -16,7 +16,7 @@ app.config ['$routeProvider', ($routeProvider) ->
     controller: "AboutCtrl"
   }
   .otherwise {
-    redirectTo: '/'
+    redirectTo: '/X11'
   }
 ]
 

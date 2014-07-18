@@ -3,7 +3,7 @@ all: compile
 include mk/debug.mk
 
 watchman.mk-dirs := src test/browser
-watchman.mk-pattern := '*.coffee' '*.html' '*.json' '*.txt'
+watchman.mk-pattern := '*.coffee' '*.html' '*.json' '*.txt' '*.css'
 include mk/watchman.mk
 
 OPTS :=
