@@ -1,0 +1,17 @@
+  0   0   0		black
+  0   0 128		low blue
+  0 128   0		log green
+  0 128 128		low cyan
+128   0   0		low red
+128   0 128		low magenta
+128 128   0		brown
+192 192 192		light gray
+
+128 128 128		dark gray
+  0   0 255		high blue
+  0 255   0		high green
+  0 255 255		high cyan
+255   0   0		high red
+255   0 255		high magenta
+255 255   0		yellow
+255 255 255		white
