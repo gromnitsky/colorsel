@@ -79,8 +79,60 @@
 
 	<script type="text/ng-template" id="template.about">
 
-	  about page
+	  <article>
+		<h2>Description</h2>
 
+		<p>
+		  This utility displays the contents of the
+		  X11 <a href="rgb.txt"><tt>rgb.txt</tt></a> file (in Fedora one
+		  can found it as <tt>/usr/share/X11/rgb.txt</tt>) or other
+		  files in the similar format. Each line of this file consists
+		  of 3 integers (usually 0-255) representing the RGB values and
+		  a nickname for this color separated by spaces. The RGB values
+		  can be displayed in every color representation X11R5/6
+		  supports.
+		</p>
+
+		<p>
+		  Clicking on a text cells in the table will copy the content of
+		  the cell into a clipboard.
+		</p>
+
+		<p>
+		  Use <i>Filter</i> to reduce number of rows in the table.
+		</p>
+
+		<h2>History</h2>
+
+		<p>
+		  Remember this?
+		</p>
+
+		<img src="img/xcolorsel.png" alt="A screenshot of xcolorsel">
+
+		<p>
+		  You probably don't remember, but that was a popular program
+		  for X11 in the 90s. Unfortunately author abandoned it long
+		  time ago & on Fedora 20 it just coredumps.
+		</p>
+
+		<p>
+		  After a little bit of investigation why it crashes, I decided
+		  to rewrite parts of it not using GTK3 or something but using
+		  AngularJS + CoffeeScript.
+		</p>
+
+		<p>
+		  As a browser SPA, colorsel cannot ask your OS to pick a random
+		  pixel on the screen & report its color. For a color picker
+		  under X11, I find
+		  useful <a href="http://gcolor2.sourceforge.net/">gcolor2</a> &
+		  <a href="http://sourceforge.net/projects/xoris/">xoris</a>.
+		  (Disclosure: I wrote xoris some time ago when I was a
+		  student.)
+		</p>
+
+	  </article>
 	</script>
 
 
