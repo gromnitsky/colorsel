@@ -8,3 +8,5 @@ csClipText = ->
       clipboard.value = event.target.innerText
       clipboard.select()
       document.execCommand "copy", false, null
+      # remove focus from textarea element
+      document.querySelector('body').focus()
