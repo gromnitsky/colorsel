@@ -11,16 +11,16 @@ directives.init app
 
 app.config ['$routeProvider', ($routeProvider) ->
   $routeProvider
-  .when '/:name*', {
-    templateUrl: 'template.colorbox'
-    controller: "ColorBoxCtrl"
-  }
   .when '/about', {
-    templateUrl: 'template.about'
+    templateUrl: 'template.main'
     controller: "AboutCtrl"
   }
+  .when '/c/:name*', {
+    templateUrl: 'template.main'
+    controller: "ColorBoxCtrl"
+  }
   .otherwise {
-    redirectTo: '/X11'
+    redirectTo: '/c/X11'
   }
 ]
 

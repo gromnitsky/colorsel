@@ -41,16 +41,22 @@ ColorBoxCtrl = ($scope, $sce, $http, $routeParams, $location) ->
     0
 
   $scope.colordata_active_change = ->
-#    console.log $scope.colordata_active
-    $location.url "/#{$scope.colordata_active.name}?filter=#{$scope.colors_filter}"
+    console.log $scope
+    $location.url "/c/#{$scope.colordata_active.name}?filter=#{$scope.colors_filter}"
 
   $scope.colors_filter_change = ->
     return if $scope.colors_filter == ""
     # TODO: chage the location w/o triggering the router
     # $location.search "filter", $scope.colors_filter
 
+  $scope.colors_filter_clean = ->
+    $scope.colors_filter = ""
+
 
   # Main
+
+  $scope.template_body = 'template.colorbox'
+  $scope.nav_current = 'Home'
 
   $scope.colordata = [
     {
@@ -81,3 +87,5 @@ ColorBoxCtrl = ($scope, $sce, $http, $routeParams, $location) ->
 
 
 AboutCtrl = ($scope) ->
+  $scope.template_body = 'template.about'
+  $scope.nav_current = 'Help'
