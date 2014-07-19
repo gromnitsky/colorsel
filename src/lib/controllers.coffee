@@ -12,9 +12,12 @@ http_err_to_string = (err) ->
   else
     err
 
+
+
 ColorBoxCtrl = ($scope, $sce, $http, $routeParams, $location) ->
   $scope.reset = ->
     $scope.colors = []          # template renders this
+    $scope.colors_filter = $routeParams.filter || ''
     $scope.status_bar = ''
 
   $scope.colordata_get = ->
@@ -36,6 +39,16 @@ ColorBoxCtrl = ($scope, $sce, $http, $routeParams, $location) ->
       return idx if name == params.name
 
     0
+
+  $scope.colordata_active_change = ->
+#    console.log $scope.colordata_active
+    $location.url "/#{$scope.colordata_active.name}?filter=#{$scope.colors_filter}"
+
+  $scope.colors_filter_change = ->
+    return if $scope.colors_filter == ""
+    # TODO: chage the location w/o triggering the router
+    # $location.search "filter", $scope.colors_filter
+
 
   # Main
 
@@ -65,8 +78,6 @@ ColorBoxCtrl = ($scope, $sce, $http, $routeParams, $location) ->
   $scope.colordata_active = $scope.colordata[$scope.colordata_find_by_name $routeParams.name]
   $scope.colordata_get()
 
-  $scope.$watch 'colordata_active.url', (val) ->
-#    console.log val, $routeParams.name
-    $location.url "/#{$scope.colordata_active.name}"
+
 
 AboutCtrl = ($scope) ->

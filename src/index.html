@@ -17,15 +17,20 @@
 		<label ng-repeat="data in colordata track by $index">
 		  <input type="radio"
 				 ng-model="$parent.colordata_active"
-				 ng-value="data">{{ data.name }}
+				 ng-value="data"
+				 ng-change="colordata_active_change()">
+		  {{ data.name }}
 		</label>
 	  </div>
 
-	  <label ng-if="colors">
-		Filter: <input ng-model="colors_filter">
-	  </label>
+	  <div ng-show="colors">
+		<label>Filter:</label>
+		<input ng-model="colors_filter"
+			   ng-change="colors_filter_change()"
+			   ng-trim="true">
+	  </div>
 
-	  <table border=1 ng-if="colors">
+	  <table border=1 ng-show="colors">
 		<thead>
 		  <tr>
 			<th>#</th>
@@ -36,7 +41,7 @@
 		  </tr>
 		</thead>
 		<tbody>
-		  <tr ng-repeat="color in colors">
+		  <tr ng-repeat="color in colors | filter:colors_filter">
 			<td>{{ $index + 1}}</td>
 			<td>
 			  <div class="cs_color_rectangle" style="background-color: {{ color.decimals | decimals2hex_string }};"></div>
