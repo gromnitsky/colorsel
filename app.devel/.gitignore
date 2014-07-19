@@ -1,5 +1,1 @@
-js/*.browserify.js
-*.css
-*.html
-*.json
-*.txt
+../app/.gitignore
