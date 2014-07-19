@@ -10,3 +10,26 @@
 	width: 10em;
 	height: 2em;
 }
+
+.cs_clipboard {
+	position: absolute;
+	margin-top: -1000px;
+	width: 10em;
+	height: 2em;
+}
+
+.cs_clip_text {
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+
+	-webkit-transition: color 0.2s, background-color 0.2s;
+    transition: color 0.2s, background-color 0.2s;
+}
+
+.cs_clip_text:active {
+	background-color: black;
+	color: white;
+}

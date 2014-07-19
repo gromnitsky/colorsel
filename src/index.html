@@ -9,6 +9,9 @@
 
 	<script type="text/ng-template" id="template.colorbox">
 
+	  <!-- user selected text from table sels goes here -->
+	  <textarea class="cs_clipboard" id="clipboard"></textarea>
+
 	  <div class="cs_colorbox_statusbar" ng-if="status_bar">
 		<div ng-bind-html="status_bar"></div>
 	  </div>
@@ -46,9 +49,9 @@
 			<td>
 			  <div class="cs_color_rectangle" style="background-color: {{ color.decimals | decimals2hex_string }};"></div>
 			</td>
-			<td class="cs_color_textval">{{ color.decimals | decimals2str}}</td>
-			<td class="cs_color_textval">{{ color.decimals | decimals2hex_string }}</td>
-			<td>{{ color.name }}</td>
+			<td class="cs_color_textval cs_clip_text" cs-clip-text>{{ color.decimals | decimals2str}}</td>
+			<td class="cs_color_textval cs_clip_text" cs-clip-text>{{ color.decimals | decimals2hex_string }}</td>
+			<td class="cs_clip_text" cs-clip-text>{{ color.name }}</td>
 		  </tr>
 		</tbody>
 	  </table>
