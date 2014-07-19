@@ -21,22 +21,28 @@
 		</label>
 	  </div>
 
+	  <label ng-if="colors">
+		Filter: <input ng-model="colors_filter">
+	  </label>
+
 	  <table border=1 ng-if="colors">
 		<thead>
 		  <tr>
-			<td>#</td>
-			<td>Color</td>
-			<td>Decimal</td>
-			<td>HEX</td>
-			<td>{{ colordata_active.name }} Name</td>
+			<th>#</th>
+			<th>Color</th>
+			<th>Decimal</th>
+			<th>HEX</th>
+			<th>{{ colordata_active.name }} Name</th>
 		  </tr>
 		</thead>
 		<tbody>
 		  <tr ng-repeat="color in colors">
 			<td>{{ $index + 1}}</td>
-			<td>TODO</td>
-			<td class="cs_colorname">{{ color.decimals | decimals2str}}</td>
-			<td class="cs_colorname">{{ color.decimals | decimals2hex_string }}</td>
+			<td>
+			  <div class="cs_color_rectangle" style="background-color: {{ color.decimals | decimals2hex_string }};"></div>
+			</td>
+			<td class="cs_color_textval">{{ color.decimals | decimals2str}}</td>
+			<td class="cs_color_textval">{{ color.decimals | decimals2hex_string }}</td>
 			<td>{{ color.name }}</td>
 		  </tr>
 		</tbody>

@@ -2,6 +2,11 @@
 	border: 1px solid black;
 }
 
-.cs_colorname {
+.cs_color_textval {
 	font-family: monospace;
+}
+
+.cs_color_rectangle {
+	width: 10em;
+	height: 2em;
 }
