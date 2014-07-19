@@ -24,7 +24,7 @@ compile: node_modules bower_components
 #	$(MAKE) -C test compile
 
 .PHONY: depend
-depend:
+depend: node_modules bower_components
 	$(MAKE) -C src/lib depend
 	$(MAKE) -C src/app depend
 #	$(MAKE) -C test depend
