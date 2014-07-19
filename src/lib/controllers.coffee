@@ -41,7 +41,6 @@ ColorBoxCtrl = ($scope, $sce, $http, $routeParams, $location) ->
     0
 
   $scope.colordata_active_change = ->
-    console.log $scope
     $location.url "/c/#{$scope.colordata_active.name}?filter=#{$scope.colors_filter}"
 
   $scope.colors_filter_change = ->
