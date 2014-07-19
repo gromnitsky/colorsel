@@ -7,8 +7,25 @@
 
 
 
-	<script type="text/ng-template" id="template.colorbox">
+	<script type="text/ng-template" id="template.main">
+	  <header>
+		<nav>
+		  <span class="cs_logo">ColorSel</span>
 
+		  <a href="#/" ng-class="{'active': nav_current == 'Home'}">Home</a> |
+		  <a href="#/about" ng-class="{'active': nav_current == 'Help'}">Help</a> |
+		  <a href="https://github.com/gromnitsky/colorsel">Github</a>
+		</nav>
+	  </header>
+
+	  <!-- controllers set this -->
+	  <main ng-include="template_body"></main>
+
+	</script>
+
+
+
+	<script type="text/ng-template" id="template.colorbox">
 	  <!-- user selected text from table sels goes here -->
 	  <textarea class="cs_clipboard" id="clipboard"></textarea>
 
@@ -16,24 +33,24 @@
 		<div ng-bind-html="status_bar"></div>
 	  </div>
 
-	  <div>
+	  <div class="cs_colordata_nav">
 		<label ng-repeat="data in colordata track by $index">
 		  <input type="radio"
-				 ng-model="$parent.colordata_active"
+				 ng-model="$parent.$parent.colordata_active"
 				 ng-value="data"
 				 ng-change="colordata_active_change()">
 		  {{ data.name }}
 		</label>
 	  </div>
 
-	  <div ng-show="colors">
-		<label>Filter:</label>
-		<input ng-model="colors_filter"
+	  <div ng-show="colors" class="cs_filter">
+		<button ng-click="colors_filter_clean()">&empty; Filter</button>
+		<input ng-model="$parent.colors_filter"
 			   ng-change="colors_filter_change()"
 			   ng-trim="true">
 	  </div>
 
-	  <table border=1 ng-show="colors">
+	  <table ng-show="colors">
 		<thead>
 		  <tr>
 			<th>#</th>
@@ -46,7 +63,7 @@
 		<tbody>
 		  <tr ng-repeat="color in colors | filter:colors_filter">
 			<td>{{ $index + 1}}</td>
-			<td>
+			<td class="cs_color_rectangle_cell">
 			  <div class="cs_color_rectangle" style="background-color: {{ color.decimals | decimals2hex_string }};"></div>
 			</td>
 			<td class="cs_color_textval cs_clip_text" cs-clip-text>{{ color.decimals | decimals2str}}</td>
@@ -72,7 +89,6 @@
 
   <body>
 	<div ng-view></div>
-
 
 	<script src="js/angular.min.js"></script>
     <script src="js/angular-route.min.js"></script>

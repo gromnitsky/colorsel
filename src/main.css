@@ -1,13 +1,20 @@
 .cs_colorbox_statusbar {
-	border: 1px solid black;
+	margin-bottom: 10px;
+	padding: 5px;
+	background-color: #ffdab9;
+	border: 1px solid #cccccc;
 }
 
 .cs_color_textval {
 	font-family: monospace;
 }
 
+.cs_color_rectangle_cell {
+	width: 30%;
+}
+
 .cs_color_rectangle {
-	width: 10em;
+	width: 100%;
 	height: 2em;
 }
 
@@ -32,4 +39,54 @@
 .cs_clip_text:active {
 	background-color: black;
 	color: white;
+}
+
+main, header {
+	text-align: left;
+	width: 640px;
+	margin: 0 auto;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+td, th {
+	border: 1px solid #cccccc;
+	padding: 4px;
+}
+
+th {
+	background-color: #eeeeee;
+}
+
+.cs_filter {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.cs_filter button {
+	margin-left: 0px;
+}
+
+.cs_colordata_nav label:first-child input {
+	margin-left: 0px;
+}
+
+.cs_logo {
+	margin-right: 3em;
+	font-size: larger;
+}
+
+nav {
+	margin-bottom: 10px;
+}
+
+nav a.active {
+	background-color: #4169e1;
+	color: white;
+	padding-left: 5px;
+	padding-right: 5px;
+	text-decoration: none;
 }
