@@ -9,7 +9,7 @@
 
 	<script type="text/ng-template" id="template.colorbox">
 
-	  <div class="colorbox_statusbar" ng-if="status_bar">
+	  <div class="cs_colorbox_statusbar" ng-if="status_bar">
 		<div ng-bind-html="status_bar"></div>
 	  </div>
 
@@ -21,7 +21,7 @@
 		</label>
 	  </div>
 
-	  <table border=1>
+	  <table border=1 ng-if="colors">
 		<thead>
 		  <tr>
 			<td>#</td>
@@ -35,8 +35,8 @@
 		  <tr ng-repeat="color in colors">
 			<td>{{ $index + 1}}</td>
 			<td>TODO</td>
-			<td>{{ color.decimals }}</td>
-			<td>TODO</td>
+			<td class="cs_colorname">{{ color.decimals | decimals2str}}</td>
+			<td class="cs_colorname">{{ color.decimals | decimals2hex_string }}</td>
 			<td>{{ color.name }}</td>
 		  </tr>
 		</tbody>

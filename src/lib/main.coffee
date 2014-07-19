@@ -1,9 +1,11 @@
 controllers = require './controllers'
+filters = require './filters'
 
 appname = 'colorsel'
 
 app = angular.module appname, ['ngRoute']
 controllers.init app
+filters.init app
 
 app.config ['$routeProvider', ($routeProvider) ->
   $routeProvider

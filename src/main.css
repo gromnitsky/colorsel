@@ -1,3 +1,7 @@
-.colorbox_statusbar {
+.cs_colorbox_statusbar {
 	border: 1px solid black;
+}
+
+.cs_colorname {
+	font-family: monospace;
 }

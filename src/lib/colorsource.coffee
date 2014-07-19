@@ -22,7 +22,8 @@ class ColorSource
       # doesn't allow that
       continue if name.indexOf(' ') != -1 && !@params.spaces
 
-      decimals = [match[1], match[2], match[3]]
+      decimals = []
+      decimals.push parseInt(idx) for idx in [match[1], match[2], match[3]]
       for digit in decimals
         throw new Error @_errmsg index+1, "invalid decimal: #{digit}" unless 0 <= digit <= 255
 
