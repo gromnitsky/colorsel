@@ -62,21 +62,25 @@ ColorBoxCtrl = ($scope, $sce, $http, $routeParams, $location) ->
       url: 'rgb.txt'
       name: 'X11'
       spaces: false
+      idx_plus: 1
     }
     {
       url: 'css-basic.txt'
       name: 'CSS Basic'
       spaces: false
+      idx_plus: 1
     }
     {
       url: 'css4.txt'
       name: 'CSS 4'
       spaces: false
+      idx_plus: 1
     }
     {
       url: 'cga.txt'
       name: 'CGA 4-bit'
       spaces: true
+      idx_plus: 0
     }
   ]
 

@@ -62,7 +62,7 @@
 		</thead>
 		<tbody>
 		  <tr ng-repeat="color in colors | filter:colors_filter">
-			<td>{{ $index + 1}}</td>
+			<td>{{ $index + colordata_active.idx_plus}}</td>
 			<td class="cs_color_rectangle_cell">
 			  <div class="cs_color_rectangle" ng-style="{'background-color': (color.decimals | decimals2hex_string)}"></div>
 			</td>
