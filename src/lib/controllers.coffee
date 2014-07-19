@@ -59,6 +59,13 @@ ColorBoxCtrl = ($scope, $sce, $http, $routeParams, $location) ->
 
   $scope.colordata = [
     {
+      url: 'test.txt'
+      name: 'test'
+      spaces: false
+      idx_plus: 1
+      hidden: true
+    }
+    {
       url: 'rgb.txt'
       name: 'X11'
       spaces: false

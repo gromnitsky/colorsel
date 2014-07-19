@@ -26,7 +26,7 @@
 
 
 	<script type="text/ng-template" id="template.colorbox">
-	  <!-- user selected text from table sels goes here -->
+	  <!-- user selected text from table cells goes here -->
 	  <textarea class="cs_clipboard" id="clipboard"></textarea>
 
 	  <div class="cs_colorbox_statusbar" ng-if="status_bar">
@@ -34,7 +34,7 @@
 	  </div>
 
 	  <div class="cs_colordata_nav">
-		<label ng-repeat="data in colordata track by $index">
+		<label ng-repeat="data in colordata track by $index" ng-show="!data.hidden">
 		  <input type="radio"
 				 ng-model="$parent.$parent.colordata_active"
 				 ng-value="data"
