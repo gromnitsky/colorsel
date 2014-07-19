@@ -41,7 +41,7 @@
 	color: white;
 }
 
-main, header {
+.cs_container {
 	text-align: left;
 	width: 640px;
 	margin: 0 auto;
