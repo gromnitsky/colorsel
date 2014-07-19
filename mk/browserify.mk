@@ -74,4 +74,4 @@ endif
 
 .PHONY: browserify.mk-clean
 browserify.mk-clean:
-	rm -f $(browserify.mk-js) $(browserify.mk-bundles) js.mk
+	rm -f $(browserify.mk-js) $(browserify.mk-bundles)

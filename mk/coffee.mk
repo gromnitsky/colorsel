@@ -35,4 +35,4 @@ endif
 
 .PHONY: coffee.mk-clean
 coffee.mk-clean:
-	rm -f $(coffee.mk-js) js.mk
+	rm -f $(coffee.mk-js)
