@@ -1,0 +1,86 @@
+<!doctype html>
+<title>ColorSel</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  @media screen and (min-width: 601px) {
+    body {
+      width: 600px;
+      margin: 8px auto;
+    }
+  }
+
+  body {
+    font-family: sans-serif;
+  }
+
+  a { text-decoration: none; }
+
+  h3 {
+    margin: 0;
+    font-family: serif;
+    text-transform: uppercase;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid gray;
+
+    a {
+      display: inline-block;
+      padding: 0 0.5em;
+    }
+
+    a.selected {
+      color: white;
+      background: blue;
+    }
+
+    a:last-child { padding-right: 0; }
+  }
+
+  menu {
+    margin: 1em 0;
+    padding: 0;
+    display: flex;
+
+    li {
+      list-style: none;
+      margin-right: 1em;
+    }
+  }
+</style>
+
+<header>
+  <h3>ColorSel</h3>
+  <nav>
+    <a href="?m=list" class="menuitem">Color Lists</a>
+    <a href="?m=about" class="menuitem">About</a>
+    <a href="https://github.com/gromnitsky/colorsel">Github</a>
+  </nav>
+</header>
+
+<menu>
+  <li>
+    <input type="radio" name="menuitem" id="CSS_4">
+    <label for="CSS_4">CSS 4</label>
+  </li>
+  <li>
+    <input type="radio" name="menuitem" id="X11">
+    <label for="X11">X11</label>
+  </li>
+  <li>
+    <input type="radio" name="menuitem" id="ANSI_XTerm_4-bit">
+    <label for="ANSI_XTerm_4-bit">ANSI XTerm 4-bit</label>
+  </li>
+  <li>
+    <input type="radio" name="menuitem" id="CGA_4-bit">
+    <label for="CGA_4-bit">CGA 4-bit</label>
+  </li>
+</menu>
+
+<label for="filter">Text filter: </label><input type="search" id="filter">
+
+<script src="node_modules/chroma-js/dist/chroma.min.cjs"></script>
+<script type="module" src="main.js"></script>

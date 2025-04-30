@@ -1,0 +1,17 @@
+  0   0   0		black
+205   0   0		red
+  0 205   0		green
+205 205   0		yellow
+  0   0 238		blue
+205   0 205		magenta
+  0 205 205		cyan
+229 229 229		white
+
+127 127 127		bright black (gray)
+255   0   0		bright red
+  0 255   0		bright green
+255 255   0		bright yellow
+ 92  92 255		bright blue
+255   0 255		bright magenta
+  0 255 255		bright cyan
+255 255 255		bright white
