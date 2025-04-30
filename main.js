@@ -18,19 +18,34 @@ function router(location_search) {
     })
 }
 
-function mode_list(params) {
-    inject_html('list.html', document.querySelector('main'))
+async function mode_list(params) {
+    let html = await fetch_text('list.html')
+    let main = document.querySelector('main')
+    main.innerHTML = ''
+    mkchild(html, main)
+
+    main.querySelector('form').onsubmit = evt => {
+        evt.preventDefault()
+        console.log(1)
+    }
 }
 
-function mode_about() {
-    inject_html('about.html', document.querySelector('main'))
+async function mode_about() {
+    let html = await fetch_text('about.html')
+    let main = document.querySelector('main')
+    main.innerHTML = ''
+    mkchild(html, main)
 }
 
-function inject_html(file, node) {
-    fetch(file).then( r => {
+function fetch_text(file) {
+    return fetch(file).then( r => {
         if (!r.ok) throw new Error(r.status)
         return r.text()
-    }).then( text => {
-        node.innerHTML = text
     })
+}
+
+function mkchild(html, parent) {
+    let div = document.createElement('div')
+    div.innerHTML = html
+    return parent.appendChild(div)
 }
