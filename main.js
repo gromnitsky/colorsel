@@ -1,3 +1,5 @@
+/* global chroma */
+
 router()
 
 function router(location_search) {
@@ -18,23 +20,96 @@ function router(location_search) {
     })
 }
 
+/* eslint dot-notation: "off" -- in `form` object it's idiomaic */
 async function mode_list(params) {
     let html = await fetch_text('list.html')
     let main = document.querySelector('main')
     main.innerHTML = ''
-    mkchild(html, main)
+    inject_html(html, main)
 
-    main.querySelector('form').onsubmit = evt => {
-        evt.preventDefault()
-        console.log(1)
+    let form = main.querySelector('form')
+
+    let rows = async () => {
+        return text_parse(await fetch_text(`${form["menuitem"].value}.txt`))
     }
+
+    let render = rows => {
+        console.log('render')
+        let thead = ['<thead>', '<tr>', '<th>#</th>', '<th>Color</th>',
+                     '<th>Dec</th>', '<th>Hex</th>', '<th>Name</th>',
+                     '</tr>', '</thead>']
+        main.querySelector('table').innerHTML = thead.concat(rows.map(row2html)).join``
+    }
+
+    form.onchange = async evt => { // reset list, but preserve filter
+        if (evt.target.name !== 'menuitem') return
+        update_url('list', form)
+        full_rows = await rows()
+        let filtered_rows = filter_rows(form["filter"].value, full_rows)
+        render(filtered_rows)
+    }
+
+    form.onsubmit = evt => {    // do filtering only
+        evt.preventDefault()
+        update_url('list', form)
+
+        let filtered_rows = filter_rows(form["filter"].value, full_rows)
+        render(filtered_rows)
+    }
+
+    form["menuitem"].value = params.get('menuitem')
+    if (!form["menuitem"].value) form["menuitem"].value = "CSS_4"
+    form["filter"].value = params.get('filter')
+
+    let full_rows = await rows()
+    let filtered_rows = filter_rows(form["filter"].value, full_rows)
+    render(filtered_rows)
+}
+
+function filter_rows(pattern, rows) {
+    pattern = pattern.trim()
+    if (!pattern) return rows
+    return rows.filter( v => {
+        return (v.dec + v.hex + v.name).indexOf(pattern) !== -1
+    })
+}
+
+function text_parse(str) {      // TODO: report line number on error
+    return str.split("\n").map( line => {
+        line = line.trim()
+        return line.startsWith('#') ? '' : line
+    }).filter(Boolean).map( (line, idx) => {
+        let match = line.match(/^([0-9]+\s+[0-9]+\s+[0-9]+)\s+(.+)/)
+        let rgb = match[1].split(/\s+/)
+        let color = chroma(rgb)
+        return {idx: idx+1, dec: rgb.join`, `, hex: color.hex(), name: match[2]}
+    })
+}
+
+function row2html(row) {
+    return [
+        '<tr>',
+        `<td>${row.idx}</td>`,
+        `<td><div style="background: ${row.hex}"></div></td>`,
+        `<td>${row.dec}</td>`,
+        `<td>${row.hex}</td>`,
+        `<td>${row.name}</td>`, // FIXME: escape
+        '</tr>'
+    ].join``
+}
+
+function update_url(m, form) {
+    let fd = new FormData(form)
+    let params = new URLSearchParams(fd)
+    params.set('m', m)
+    window.history.replaceState(null, '', '?' + params.toString())
 }
 
 async function mode_about() {
     let html = await fetch_text('about.html')
     let main = document.querySelector('main')
     main.innerHTML = ''
-    mkchild(html, main)
+    inject_html(html, main)
 }
 
 function fetch_text(file) {
@@ -44,7 +119,7 @@ function fetch_text(file) {
     })
 }
 
-function mkchild(html, parent) {
+function inject_html(html, parent) {
     let div = document.createElement('div')
     div.innerHTML = html
     return parent.appendChild(div)
