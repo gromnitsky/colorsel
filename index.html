@@ -26,6 +26,7 @@
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid gray;
+    margin-bottom: 1em;
 
     a {
       display: inline-block;
@@ -43,13 +44,15 @@
   menu {
     margin: 1em 0;
     padding: 0;
-    display: flex;
+    column-count: 2;
 
     li {
       list-style: none;
       margin-right: 1em;
     }
   }
+
+  img { max-width: 100%; }
 </style>
 
 <header>
@@ -61,26 +64,7 @@
   </nav>
 </header>
 
-<menu>
-  <li>
-    <input type="radio" name="menuitem" id="CSS_4">
-    <label for="CSS_4">CSS 4</label>
-  </li>
-  <li>
-    <input type="radio" name="menuitem" id="X11">
-    <label for="X11">X11</label>
-  </li>
-  <li>
-    <input type="radio" name="menuitem" id="ANSI_XTerm_4-bit">
-    <label for="ANSI_XTerm_4-bit">ANSI XTerm 4-bit</label>
-  </li>
-  <li>
-    <input type="radio" name="menuitem" id="CGA_4-bit">
-    <label for="CGA_4-bit">CGA 4-bit</label>
-  </li>
-</menu>
-
-<label for="filter">Text filter: </label><input type="search" id="filter">
+<main>⏳</main>
 
 <script src="node_modules/chroma-js/dist/chroma.min.cjs"></script>
 <script type="module" src="main.js"></script>
