@@ -1,0 +1,108 @@
+<!doctype html>
+<title>ColorSel</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  @media screen and (min-width: 601px) {
+    body {
+      width: 600px;
+      margin: 8px auto;
+    }
+  }
+
+  body {
+    font-family: sans-serif;
+  }
+
+  a { text-decoration: none; }
+
+  h3 {
+    margin: 0;
+    font-family: serif;
+    text-transform: uppercase;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid gray;
+    margin-bottom: 1em;
+
+    a {
+      display: inline-block;
+      padding: 0 0.2em;
+    }
+
+    a.selected {
+      color: white;
+      background: blue;
+    }
+
+    a:last-child { padding-right: 0; }
+  }
+
+  menu {
+    margin: 1em 0;
+    padding: 0;
+    column-count: 2;
+    column-width: 10em;
+
+    li {
+      list-style: none;
+      margin-right: 1em;
+    }
+  }
+
+  img { max-width: 100%; }
+
+  form {
+    margin: 1em 0;
+  }
+
+  table, th, td {
+    border: 1px solid lightgrey;
+    padding: 4px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  td > div {
+    min-width: 6rem;
+    width: 100%;
+    height: 2rem;
+  }
+
+  td.copyable {
+    font-family: monospace;
+    font-size: 110%;
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.2s, background-color 0.2s;
+
+    &:active {
+      background-color: black;
+      color: white;
+    }
+  }
+</style>
+
+<header>
+  <h3>ColorSel</h3>
+  <nav>
+    <a href="?m=list" class="menuitem">Color Lists</a>
+    <a href="?m=about" class="menuitem">About</a>
+    <a href="https://github.com/gromnitsky/colorsel">Github</a>
+  </nav>
+</header>
+
+<main></main>
+
+<script src="node_modules/chroma-js/dist/chroma.min.cjs"></script>
+<script type="module">
+  import {router} from './main.js'
+  router()
+</script>
