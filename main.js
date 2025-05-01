@@ -41,7 +41,7 @@ async function mode_list(params) {
         if (evt.target.name !== 'menuitem') return
         update_url('list', form)
         full_rows = await rows()
-        let filtered_rows = filter_rows(form["filter"].value, full_rows)
+        let filtered_rows = filter_rows(form, full_rows)
         render(filtered_rows, table)
     }
 
@@ -49,16 +49,20 @@ async function mode_list(params) {
         evt.preventDefault()
         update_url('list', form)
 
-        let filtered_rows = filter_rows(form["filter"].value, full_rows)
+        let filtered_rows = filter_rows(form, full_rows)
         render(filtered_rows, table)
     }
 
+    // initialise form elements with values from a URL
     form["menuitem"].value = params.get('menuitem')
     if (!form["menuitem"].value) form["menuitem"].value = "CSS_4"
+    form["filter-type"].value = params.get('filter-type')
+    if (!form["filter-type"].value) form["filter-type"].value = "substring"
     form["filter"].value = params.get('filter')
+    form["color"].value = params.get('color')
 
     let full_rows = await rows()
-    let filtered_rows = filter_rows(form["filter"].value, full_rows)
+    let filtered_rows = filter_rows(form, full_rows)
     render(filtered_rows, table)
 }
 
@@ -77,12 +81,15 @@ function render(rows, container) {
     }
 }
 
-function filter_rows(pattern, rows) {
-    pattern = pattern.trim().toLowerCase()
-    if (!pattern) return rows
-    return rows.filter( v => {
-        return (v.dec + v.hex + v.name).toLowerCase().indexOf(pattern) !== -1
-    })
+function filter_rows(form, rows) {
+    if ("substring" === form["filter-type"].value) {
+        let s = form["filter"].value.trim().toLowerCase()
+        if (!s) return rows
+        return rows.filter( v => {
+            return (v.dec + v.hex + v.name).toLowerCase().indexOf(s) !== -1
+        })
+    }
+    return find_similar_colors(form["color"].value, rows)
 }
 
 export function text_parse(str) {
@@ -98,6 +105,12 @@ export function text_parse(str) {
         let color = chroma(rgb)
         return {idx: index++, dec: rgb.join`, `, hex: color.hex(), name: match[2]}
     }).filter(Boolean)
+}
+
+export function find_similar_colors(hex, list) {
+    return list.map( v => {
+        return Object.assign({deltaE: chroma.deltaE(hex, v.hex)}, v)
+    }).filter( v => v.deltaE <= 10).sort( (a, b) => a.deltaE - b.deltaE)
 }
 
 function row2html(row) {

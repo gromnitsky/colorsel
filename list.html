@@ -18,8 +18,19 @@
     </li>
   </menu>
 
-  <input type="search" name="filter">
-  <input type="submit" value="Filter">
+  <menu style="column-count: 1">
+    <li>
+      <input type="radio" name="filter-type" id="substring" value="substring">
+      <label for="substring">Filter by <input type="search" name="filter"></label>
+    </li>
+
+    <li>
+      <input type="radio" name="filter-type" id="deltaE" value="deltaE">
+      <label for="deltaE">Try to find most probable names for <input type="color" name="color"></label>
+    </li>
+  </menu>
+
+  <input type="submit">
 </form>
 
 <div id="table"></div>
