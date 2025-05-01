@@ -18,25 +18,23 @@ export function router(location_search) {
     })
 }
 
+async function mode_about() {
+    let html = await fetch_text('about.html')
+    let main = document.querySelector('main')
+    inject_html(html, main)
+}
+
 /* eslint dot-notation: "off" -- in `form` object it's idiomaic */
 async function mode_list(params) {
     let html = await fetch_text('list.html')
     let main = document.querySelector('main')
-    main.innerHTML = ''
     inject_html(html, main)
 
     let form = main.querySelector('form')
+    let table = main.querySelector('#table')
 
     let rows = async () => {
         return text_parse(await fetch_text(`${form["menuitem"].value}.txt`))
-    }
-
-    let render = rows => {
-        console.log('render')
-        let thead = ['<thead>', '<tr>', '<th>#</th>', '<th>Color</th>',
-                     '<th>Dec</th>', '<th>Hex</th>', '<th>Name</th>',
-                     '</tr>', '</thead>']
-        main.querySelector('table').innerHTML = thead.concat(rows.map(row2html)).join``
     }
 
     form.onchange = async evt => { // reset list, but preserve filter
@@ -44,7 +42,7 @@ async function mode_list(params) {
         update_url('list', form)
         full_rows = await rows()
         let filtered_rows = filter_rows(form["filter"].value, full_rows)
-        render(filtered_rows)
+        render(filtered_rows, table)
     }
 
     form.onsubmit = evt => {    // do filtering only
@@ -52,7 +50,7 @@ async function mode_list(params) {
         update_url('list', form)
 
         let filtered_rows = filter_rows(form["filter"].value, full_rows)
-        render(filtered_rows)
+        render(filtered_rows, table)
     }
 
     form["menuitem"].value = params.get('menuitem')
@@ -61,7 +59,21 @@ async function mode_list(params) {
 
     let full_rows = await rows()
     let filtered_rows = filter_rows(form["filter"].value, full_rows)
-    render(filtered_rows)
+    render(filtered_rows, table)
+}
+
+function render(rows, container) {
+    let thead = ['<thead>', '<tr>', '<th>#</th>', '<th>Color</th>',
+                 '<th>Dec</th>', '<th>Hex</th>', '<th>Name</th>',
+                 '</tr>', '</thead>']
+    let html = ['<table>'].concat(thead, '<tbody>', rows.map(row2html),
+                                  '</tbody>', '</table>').join``
+    inject_html(html, container)
+
+    container.querySelector('table').onclick = evt => {
+        if (!evt.target.classList.contains('copyable')) return
+        navigator.clipboard.writeText(evt.target.innerText)
+    }
 }
 
 function filter_rows(pattern, rows) {
@@ -92,9 +104,9 @@ function row2html(row) {
         '<tr>',
         `<td>${row.idx}</td>`,
         `<td><div style="background: ${row.hex}"></div></td>`,
-        `<td>${row.dec}</td>`,
-        `<td>${row.hex}</td>`,
-        `<td>${row.name}</td>`, // FIXME: escape
+        `<td class="copyable">${row.dec}</td>`,
+        `<td class="copyable">${row.hex}</td>`,
+        `<td class="copyable">${row.name}</td>`, // FIXME: escape
         '</tr>'
     ].join``
 }
@@ -104,13 +116,6 @@ function update_url(m, form) {
     let params = new URLSearchParams(fd)
     params.set('m', m)
     window.history.replaceState(null, '', '?' + params.toString())
-}
-
-async function mode_about() {
-    let html = await fetch_text('about.html')
-    let main = document.querySelector('main')
-    main.innerHTML = ''
-    inject_html(html, main)
 }
 
 function fetch_text(file) {
@@ -123,5 +128,6 @@ function fetch_text(file) {
 function inject_html(html, parent) {
     let div = document.createElement('div')
     div.innerHTML = html
+    parent.innerHTML = ''
     return parent.appendChild(div)
 }
