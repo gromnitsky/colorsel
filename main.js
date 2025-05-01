@@ -77,10 +77,10 @@ function render(rows, container) {
 }
 
 function filter_rows(pattern, rows) {
-    pattern = pattern.trim()
+    pattern = pattern.trim().toLowerCase()
     if (!pattern) return rows
     return rows.filter( v => {
-        return (v.dec + v.hex + v.name).indexOf(pattern) !== -1
+        return (v.dec + v.hex + v.name).toLowerCase().indexOf(pattern) !== -1
     })
 }
 
