@@ -1,6 +1,6 @@
 remote := alex@sigwait.org:/home/alex/public_html/demo/colorsel/
 out := _out
-src := $(wildcard *.js *.html *.txt *.png) \
+src := $(wildcard *.js *.html *.txt *.png *.svg) \
 	node_modules/chroma-js/dist/chroma.min.cjs
 dest := $(addprefix $(out)/, $(src))
 
