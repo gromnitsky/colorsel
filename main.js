@@ -67,7 +67,8 @@ function render(rows, container) {
                  '<th>Dec</th>', '<th>Hex</th>', '<th>Name</th>',
                  '</tr>', '</thead>']
     let html = ['<table>'].concat(thead, '<tbody>', rows.map(row2html),
-                                  '</tbody>', '</table>').join``
+                                  '</tbody>', '</table>',
+                                  `<p>Rows: ${rows.length}</p>`).join``
     inject_html(html, container)
 
     container.querySelector('table').onclick = evt => {
