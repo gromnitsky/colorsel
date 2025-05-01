@@ -106,9 +106,15 @@ function row2html(row) {
         `<td><div style="background: ${row.hex}"></div></td>`,
         `<td class="copyable">${row.dec}</td>`,
         `<td class="copyable">${row.hex}</td>`,
-        `<td class="copyable">${row.name}</td>`, // FIXME: escape
+        `<td class="copyable">${escape_html(row.name)}</td>`,
         '</tr>'
     ].join``
+}
+
+function escape_html(s) {
+    let div = document.createElement('div')
+    div.textContent = s
+    return div.innerHTML
 }
 
 function update_url(m, form) {
