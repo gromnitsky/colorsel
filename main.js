@@ -1,8 +1,6 @@
 /* global chroma */
 
-router()
-
-function router(location_search) {
+export function router(location_search) {
     let params = new URLSearchParams(location_search || window.location.search)
     if (!params.get('m')) params.set('m', 'list')
     let modes = {
@@ -74,16 +72,19 @@ function filter_rows(pattern, rows) {
     })
 }
 
-function text_parse(str) {      // TODO: report line number on error
+export function text_parse(str) {
+    let index = 1
     return str.split("\n").map( line => {
         line = line.trim()
         return line.startsWith('#') ? '' : line
-    }).filter(Boolean).map( (line, idx) => {
+    }).map( (line, idx) => {
+        if (!line) return ''
         let match = line.match(/^([0-9]+\s+[0-9]+\s+[0-9]+)\s+(.+)/)
+        if (!match) throw new Error(`line ${idx+1}: invalid format`)
         let rgb = match[1].split(/\s+/)
         let color = chroma(rgb)
-        return {idx: idx+1, dec: rgb.join`, `, hex: color.hex(), name: match[2]}
-    })
+        return {idx: index++, dec: rgb.join`, `, hex: color.hex(), name: match[2]}
+    }).filter(Boolean)
 }
 
 function row2html(row) {

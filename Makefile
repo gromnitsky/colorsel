@@ -10,3 +10,6 @@ all: $(dest)
 $(dest): $(out)/%: %
 	@mkdir -p $(dir $@)
 	cp $< $@
+
+.PHONY: test
+test:; mocha -u tdd test/test_*.js

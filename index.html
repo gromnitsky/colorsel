@@ -87,4 +87,7 @@
 <main></main>
 
 <script src="node_modules/chroma-js/dist/chroma.min.cjs"></script>
-<script type="module" src="main.js"></script>
+<script type="module">
+  import {router} from './main.js'
+  router()
+</script>
