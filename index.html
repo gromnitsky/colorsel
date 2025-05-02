@@ -80,8 +80,6 @@
   }
 
   td.copyable {
-    font-family: monospace;
-    font-size: 110%;
     cursor: pointer;
     user-select: none;
     transition: color 0.2s, background-color 0.2s;
@@ -90,6 +88,11 @@
       background-color: black;
       color: white;
     }
+  }
+
+  td.copyable:not(:last-child) {
+    font-family: monospace;
+    font-size: 115%;
   }
 </style>
 
