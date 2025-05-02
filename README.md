@@ -7,6 +7,8 @@ run it under any static web server.
 
 `about.html` contains a short history of the 'port'.
 
+To add another color list, add `form > menu > li` in `list.html`.
+
 ## &#x2672; Loicense
 
 MIT
