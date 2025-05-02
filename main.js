@@ -31,7 +31,6 @@ async function mode_list(params) {
     inject_html(html, main)
 
     let form = main.querySelector('form')
-    let table = main.querySelector('#table')
 
     let rows = async () => {
         return text_parse(await fetch_text(`${form["menuitem"].value}.txt`))
@@ -42,7 +41,7 @@ async function mode_list(params) {
         update_url('list', form)
         full_rows = await rows()
         let filtered_rows = filter_rows(form, full_rows)
-        render(filtered_rows, table)
+        render(filtered_rows, main)
     }
 
     form.onsubmit = evt => {    // do filtering only
@@ -50,7 +49,12 @@ async function mode_list(params) {
         update_url('list', form)
 
         let filtered_rows = filter_rows(form, full_rows)
-        render(filtered_rows, table)
+        render(filtered_rows, main)
+    }
+
+    main.querySelector('table').onclick = evt => {
+        if (!evt.target.classList.contains('copyable')) return
+        navigator.clipboard.writeText(evt.target.innerText)
     }
 
     // initialise form elements with values from a URL
@@ -63,22 +67,12 @@ async function mode_list(params) {
 
     let full_rows = await rows()
     let filtered_rows = filter_rows(form, full_rows)
-    render(filtered_rows, table)
+    render(filtered_rows, main)
 }
 
-function render(rows, container) {
-    let thead = ['<thead>', '<tr>', '<th>#</th>', '<th>Color</th>',
-                 '<th>Dec</th>', '<th>Hex</th>', '<th>Name</th>',
-                 '</tr>', '</thead>']
-    let html = ['<table>'].concat(thead, '<tbody>', rows.map(row2html),
-                                  '</tbody>', '</table>',
-                                  `<p>Rows: ${rows.length}</p>`).join``
-    inject_html(html, container)
-
-    container.querySelector('table').onclick = evt => {
-        if (!evt.target.classList.contains('copyable')) return
-        navigator.clipboard.writeText(evt.target.innerText)
-    }
+function render(rows, main) {
+    main.querySelector('tbody').innerHTML = rows.map(row2html).join``
+    main.querySelector('#stat').innerHTML = `Rows: ${rows.length}`
 }
 
 function filter_rows(form, rows) {

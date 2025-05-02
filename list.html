@@ -21,16 +21,29 @@
   <menu style="column-count: 1">
     <li>
       <input type="radio" name="filter-type" id="substring" value="substring">
-      <label for="substring">Filter by <input type="search" name="filter"></label>
+      <label for="substring">Filter by</label> <input type="search" name="filter">
     </li>
 
     <li>
       <input type="radio" name="filter-type" id="deltaE" value="deltaE">
-      <label for="deltaE">Try to find most probable names for <input type="color" name="color"></label>
+      <label for="deltaE">Try to find most probable names for</label> <input type="color" name="color">
     </li>
   </menu>
 
   <input type="submit">
 </form>
 
-<div id="table"></div>
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Color</th>
+      <th>Dec</th>
+      <th>Hex</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<p id="stat">Rows: -1</p>
