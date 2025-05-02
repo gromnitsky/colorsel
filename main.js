@@ -80,7 +80,7 @@ function filter_rows(form, rows) {
         let s = form["filter"].value.trim().toLowerCase()
         if (!s) return rows
         return rows.filter( v => {
-            return (v.dec + v.hex + v.name).toLowerCase().indexOf(s) !== -1
+            return (v.rgb + v.hex + v.name).toLowerCase().indexOf(s) !== -1
         })
     }
     return find_similar_colors(form["color"].value, rows)
@@ -97,7 +97,7 @@ export function text_parse(str) {
         if (!match) throw new Error(`line ${idx+1}: invalid format`)
         let rgb = match[1].split(/\s+/)
         let color = chroma(rgb)
-        return {idx: index++, dec: rgb.join`, `, hex: color.hex(), name: match[2]}
+        return {idx: index++, rgb: rgb.join`, `, hex: color.hex(), name: match[2]}
     }).filter(Boolean)
 }
 
@@ -112,7 +112,7 @@ function row2html(row) {
         '<tr>',
         `<td>${row.idx}</td>`,
         `<td><div style="background: ${row.hex}"></div></td>`,
-        `<td class="copyable">${row.dec}</td>`,
+        `<td class="copyable">${row.rgb}</td>`,
         `<td class="copyable">${row.hex}</td>`,
         `<td class="copyable">${escape_html(row.name)}</td>`,
         '</tr>'
