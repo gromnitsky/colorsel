@@ -13,3 +13,6 @@ $(dest): $(out)/%: %
 
 .PHONY: test
 test:; mocha -u tdd test/test_*.js
+
+Wikipedia.txt: test/wikipedia.rb
+	$< | awk '!x[$$0]++' > $@
