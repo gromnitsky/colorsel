@@ -8,7 +8,7 @@ export function router(location_search) {
         'about': mode_about,
     }
     document.querySelector('main').innerHTML = '⏳'
-    modes[params.get('m')](params)
+    my_viewtransition( () => modes[params.get('m')](params))
 
     // select the current menu item
     document.querySelectorAll('a.menuitem').forEach( a => {
@@ -31,6 +31,7 @@ async function mode_list(params) {
     inject_html(html, main)
 
     let form = main.querySelector('form')
+    form.style.viewTransitionName = 'none'
 
     let rows = async () => {
         return text_parse(await fetch_text(`${form["menuitem"].value}.txt`))
@@ -71,8 +72,10 @@ async function mode_list(params) {
 }
 
 function render(rows, main) {
-    main.querySelector('tbody').innerHTML = rows.map(row2html).join``
-    main.querySelector('#stat').innerHTML = `Rows: ${rows.length}`
+    my_viewtransition( () => {
+        main.querySelector('tbody').innerHTML = rows.map(row2html).join``
+        main.querySelector('#stat').innerHTML = `Rows: ${rows.length}`
+    })
 }
 
 function filter_rows(form, rows) {
@@ -144,4 +147,12 @@ function inject_html(html, parent) {
     div.innerHTML = html
     parent.innerHTML = ''
     return parent.appendChild(div)
+}
+
+function my_viewtransition(fn) {
+    if (document.startViewTransition) {
+        document.startViewTransition( () => fn())
+    } else {
+        fn()
+    }
 }
