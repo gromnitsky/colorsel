@@ -32,17 +32,35 @@ async function mode_list(params) {
 
     let form = main.querySelector('form')
     form.style.viewTransitionName = 'none'
+    let file_dialog = main.querySelector('#file_dialog')
 
     let rows = async () => {
-        return text_parse(await fetch_text(`${form["menuitem"].value}.txt`))
+        let url = form["menuitem"].value
+        if (url === "userfile") {
+            if (!file_dialog.files.length) return []
+            url = URL.createObjectURL(file_dialog.files[0])
+        } else {
+            url += '.txt'
+        }
+        return text_parse(await fetch_text(url))
     }
 
     form.onchange = async evt => { // reset list, but preserve filter
-        if (evt.target.name !== 'menuitem') return
+        if ( !(evt.target.name === 'menuitem'
+               || evt.target.id === 'file_dialog')) return
         update_url('list', form)
-        full_rows = await rows()
+        try {
+            full_rows = await rows()
+        } catch (e) {
+            alert(e)
+            full_rows = []
+        }
         let filtered_rows = filter_rows(form, full_rows)
         render(filtered_rows, main)
+    }
+
+    file_dialog.onchange = () => { // firefox/wekbit
+        form["menuitem"].value = 'userfile'
     }
 
     form.onsubmit = evt => {    // do filtering only

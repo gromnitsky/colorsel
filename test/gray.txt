@@ -1,0 +1,35 @@
+# https://en.wikipedia.org/wiki/Shades_of_gray
+
+# Achromatic
+220 220 220             Gainsboro
+192 192 192             Silver
+190 190 190             Medium gray
+152 152 152             Spanish gray
+ 85  85  85             Davy's gray
+ 64  64  64             Tundora
+
+# Off
+115 134 120             Xanadu
+229 228 226             Platinum
+178 190 181             Ash gray
+132 132 130             Battleship gray
+ 42  52  57             Gunmetal
+125 125 124             Lead gray
+ 54  69  79             Charcoal
+146 142 133             Stone gray
+
+# Cool
+144 144 192             Cool gray
+145 163 176             Cadet gray
+102 153 204             Blue-gray
+ 96 130 182             Glaucous
+112 128 144             Slate gray
+ 94 113 106             Gray-green
+ 76  88 102             Marengo
+104 106 108             Nardo gray
+
+# Warm
+170 152 169             Rose quartz
+152 129 123             Cinereous
+ 72  60  50             Taupe
+204 194 186             Greige

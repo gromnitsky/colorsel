@@ -96,6 +96,26 @@
     font-family: monospace;
     font-size: 115%;
   }
+
+  menu > li:has(input[type="file"]) {
+    display: flex;
+    overflow-x: clip;
+
+    input[type="file"] {
+      font-size: inherit;
+    }
+  }
+
+  menu > li:has(input[type="search"]) {
+    align-content: center;
+    height: 2em;
+
+    input[type="search"] {
+      font-size: 115%;
+      font-family: monospace;
+    }
+  }
+
 </style>
 
 <header>
