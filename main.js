@@ -76,6 +76,12 @@ async function mode_list(params) {
         navigator.clipboard.writeText(evt.target.innerText)
     }
 
+    main.querySelector('#table_sort').onclick = function() {
+        this.classList.toggle("selected")
+        form["sort"].value = this.classList.contains("selected") ? "hue" : "index"
+        form.requestSubmit()
+    }
+
     // initialise form elements with values from a URL
     form["menuitem"].value = params.get('menuitem')
     if (!form["menuitem"].value) form["menuitem"].value = "CSS_4"
@@ -83,6 +89,12 @@ async function mode_list(params) {
     if (!form["filter-type"].value) form["filter-type"].value = "substring"
     form["filter"].value = params.get('filter')
     form["color"].value = params.get('color')
+    form["sort"].value = params.get('sort')
+
+    // custom table controls
+    if (form["sort"].value === 'hue') {
+        main.querySelector('#table_sort').classList.add("selected")
+    }
 
     let full_rows = await rows()
     let filtered_rows = filter_rows(form, full_rows)
@@ -99,12 +111,29 @@ function render(rows, main) {
 function filter_rows(form, rows) {
     if ("substring" === form["filter-type"].value) {
         let s = form["filter"].value.trim().toLowerCase()
-        if (!s) return rows
-        return rows.filter( v => {
+        let result = rows
+        if (s) result = rows.filter( v => {
             return (v.rgb + v.hex + v.name).toLowerCase().indexOf(s) !== -1
         })
+        return sort_rows(form, result)
     }
     return find_similar_colors(form["color"].value, rows)
+}
+
+function sort_rows(form, rows) {
+    if (form["sort"].value !== "hue") return rows
+
+    let is_mono = (hue, saturation) => {
+        if (isNaN(hue)) return true
+        if (hue === 0 && saturation <= 0.1) return true
+        return false
+    }
+
+    let achromatic = rows.filter( v => is_mono(v.hsl[0], v.hsl[1]) )
+        .sort( (a, b) => b.hsl[2] - a.hsl[2])
+    let color = rows.filter( v => !is_mono(v.hsl[0], v.hsl[1]))
+        .sort( (a, b) => a.hsl[0] - b.hsl[0])
+    return color.concat(achromatic)
 }
 
 export function text_parse(str) {
@@ -118,7 +147,7 @@ export function text_parse(str) {
         if (!match) throw new Error(`line ${idx+1}: invalid format`)
         let rgb = match[1].split(/\s+/)
         let color = chroma(rgb)
-        return {idx: index++, rgb: rgb.join`, `, hex: color.hex(), name: match[2]}
+        return {idx: index++, rgb: rgb.join`, `, hex: color.hex(), name: match[2], hsl: color.hsl()}
     }).filter(Boolean)
 }
 
