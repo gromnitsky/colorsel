@@ -5,7 +5,7 @@ export function router(location_search) {
     if (!params.get('m')) params.set('m', 'list')
     let modes = {
         'list': mode_list,
-        'about': mode_about,
+        'help': mode_help,
     }
     document.querySelector('main').innerHTML = '⏳'
     my_viewtransition( () => modes[params.get('m')](params))
@@ -18,8 +18,8 @@ export function router(location_search) {
     })
 }
 
-async function mode_about() {
-    let html = await fetch_text('about.html')
+async function mode_help() {
+    let html = await fetch_text('help.html')
     let main = document.querySelector('main')
     inject_html(html, main)
 }

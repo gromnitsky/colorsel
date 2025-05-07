@@ -1,4 +1,32 @@
 <p>
+  Renders X11-like mappings of color names to RGB values. Historically,
+  the famous <code>rgb.txt</code> file has been a primary
+  example of such mappings:
+</p>
+
+<pre>
+$ head -2 /usr/share/X11/rgb.txt
+255 250 250             snow
+248 248 255             ghost white
+</pre>
+
+<p>
+  Clicking on the <i>Color</i> table header attempts to sort the table
+  rows by hue, placing achromatic (or nearly achromatic) colors at the
+  end.
+</p>
+
+<p>
+  'Filter by' uses a substring match (requires
+  pressing <kbd>Enter</kbd> or clicking the Submit button).
+</p>
+
+<p>'Find most probable names' uses CIE color difference.</p>
+
+
+<h2>History</h2>
+
+<p>
   In the beginning there was <i>xcolorsel</i> program:
 </p>
 
@@ -26,5 +54,24 @@
   <i>Angular.js</i> has been deprecated since 2018, if not
   earlier. Recently, I wanted to add another color list to ColorSel,
   but then decided to rewrite the app using a no-framework,
-  no-build-step approach. ☕
+  no-build-step approach.
 </p>
+
+<h2>Bugs</h2>
+
+<ul>
+  <li>Sorting by hue is suboptimal.</li>
+
+  <li>
+    When in the 'Find most probable names' mode, clicking on the
+    'Color' table header should not be allowed, for it does nothing.
+  </li>
+
+  <li>
+    Scrolling position between 'modes' is not retained.
+  </li>
+
+  <li>
+    No support for pre-2025 browsers. ☕
+  </li>
+</ul>
